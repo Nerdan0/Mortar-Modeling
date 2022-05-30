@@ -7,7 +7,10 @@ using TMPro;
 public class TargetController : MonoBehaviour
 {
 
-    TMP_Text targetPosition;
+    TMP_Text targetPositionText;
+    TMP_Text azimuthText;
+    TMP_Text distanceText;
+    GameObject azimuthObject;
     int minRange = 100;
     int maxRange = 3901;
     float distance;
@@ -15,8 +18,18 @@ public class TargetController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        targetPosition = GameObject.Find("TargetPosition").GetComponent<TMP_Text>();
-        targetPosition.text = "Положення цілі:\nx = " + transform.position.x + "; z = " + transform.position.z + ";";
+        azimuthObject = GameObject.Find("AzimuthObject");
+
+        targetPositionText = GameObject.Find("TargetPosition").GetComponent<TMP_Text>();
+        azimuthText = GameObject.Find("Azimuth").GetComponent<TMP_Text>();
+        distanceText = GameObject.Find("Distance").GetComponent<TMP_Text>();
+        distance = VectorDistance(transform.position.x, transform.position.z);
+
+        azimuthObject.transform.LookAt(transform);
+
+        azimuthText.text = "Азимут до цілі: " + Mathf.Round(azimuthObject.transform.localEulerAngles.y);
+        distanceText.text = "Дистанція до цілі: " + Mathf.Round(distance) +" м";
+        targetPositionText.text = "Положення цілі:\nx = " + transform.position.x + "; z = " + transform.position.z + ";";
     }
 
     // Update is called once per frame
@@ -42,8 +55,10 @@ public class TargetController : MonoBehaviour
         }
 
         transform.position = new Vector3(randX, transform.position.y, randZ);
-        targetPosition.text = "Положення цілі:\nx = " + transform.position.x + "; z = " + transform.position.z + ";";
-
+        targetPositionText.text = "Положення цілі:\nx = " + transform.position.x + "; z = " + transform.position.z + ";";
+        distanceText.text = "Дистанція до цілі: " + Mathf.Round(distance) + " м";
+        azimuthObject.transform.LookAt(transform);
+        azimuthText.text = "Азимут до цілі: " + Mathf.Round(azimuthObject.transform.localEulerAngles.y);
     }
 
     int RandomPoint() 
@@ -51,7 +66,7 @@ public class TargetController : MonoBehaviour
         return Random.Range(minRange, maxRange) * (Random.Range(0, 2) * 2 - 1);
     }
 
-    float VectorDistance(int randX, int randZ) 
+    float VectorDistance(float randX, float randZ) 
     {
         return Mathf.Sqrt(randX * randX + randZ * randZ);
     }
