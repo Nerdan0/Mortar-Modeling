@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4213339835226480257}
   - component: {fileID: 1797566205435458180}
   - component: {fileID: -5368656898214224651}
+  - component: {fileID: 4434131123079935896}
   m_Layer: 0
   m_Name: MortarShell
   m_TagString: Untagged
@@ -100,3 +101,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &4434131123079935896
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171111901532131495}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.024596507
+  m_Height: 0.1631284
+  m_Direction: 2
+  m_Center: {x: -0.025399826, y: -0.29564235, z: 0.07446576}

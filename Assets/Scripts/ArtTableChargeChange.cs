@@ -6,18 +6,18 @@ using TMPro;
 
 public class ArtTableChargeChange : MonoBehaviour
 {
-    [SerializeField] TMP_Dropdown m_Dropdown;
+    [SerializeField] TMP_Dropdown dropdown;
     [SerializeField] Image image;
     [SerializeField] List<Sprite> sprites;
 
     void Start()
     {
         //Fetch the Dropdown GameObject
-        m_Dropdown = GetComponent<TMP_Dropdown>();
+        dropdown = GetComponent<TMP_Dropdown>();
         //Add listener for when the value of the Dropdown changes, to take action
-        m_Dropdown.onValueChanged.AddListener(delegate
+        dropdown.onValueChanged.AddListener(delegate
         {
-            DropdownValueChanged(m_Dropdown);
+            DropdownValueChanged(dropdown);
         });
 
     }
