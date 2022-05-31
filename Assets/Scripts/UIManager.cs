@@ -6,19 +6,21 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] GameObject shellPrefab;
     GameObject mortarObject;
     GameObject mortar;
     Transform spawnTransform;
     TMP_InputField horizontalScope;
     TMP_InputField verticalScope;
     TMP_Dropdown chargeDropdown;
+    Button shotButton;
 
     int[] speed = { 261, 216, 179, 135, 76 };
     int currentSpeed;
     int horizontalValue;
     int verticalValue;
 
-
+    //GameObject newShell;
 
     void Start()
     {
@@ -53,15 +55,18 @@ public class UIManager : MonoBehaviour
             ChargeChange(chargeDropdown);
         });
 
-
-
+        shotButton = GameObject.Find("ShotButton").GetComponent<Button>();
+        shotButton.onClick.AddListener(delegate
+        {
+            Shot();
+        });
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(newShell.GetComponent<Rigidbody>().velocity);
     }
 
     void HorizontalChange(TMP_InputField change) 
@@ -107,5 +112,44 @@ public class UIManager : MonoBehaviour
     {
         currentSpeed = speed[change.value];
         Debug.Log(currentSpeed);
+    }
+
+    void Shot() 
+    {
+        //GameObject newShell = Instantiate(shellPrefab, spawnTransform.position+ new Vector3(1,1,1), Quaternion.identity);
+        GameObject newShell = Instantiate(shellPrefab, spawnTransform.position, Quaternion.identity);
+        //Physics.IgnoreCollision(newShell.GetComponent<CapsuleCollider>(), mortar.GetComponent<Collider>());
+
+        //not working propperly, too much velocity
+        //maybe drag(air resistance) will help, will try after relative force
+        //velocity actually as stated in table
+        //newShell.GetComponent<Rigidbody>().velocity =spawnTransform.up* currentSpeed;
+
+        //using force
+        //too low force, i dunno why
+        //actually divides by mass, otherwise will be equal to velocity
+        //newShell.GetComponent<Rigidbody>().AddForce(spawnTransform.up * currentSpeed,ForceMode.Impulse);
+
+        //as well as default force mode - too low speed, just falls out 
+        //newShell.GetComponent<Rigidbody>().AddForce(spawnTransform.up * currentSpeed, ForceMode.Acceleration);
+
+        //nop, too low force and starting speed not right
+        //newShell.GetComponent<Rigidbody>().AddRelativeForce(spawnTransform.up * currentSpeed, ForceMode.Impulse);
+
+        //too high speed
+        //newShell.GetComponent<Rigidbody>().AddRelativeForce(spawnTransform.up * currentSpeed, ForceMode.VelocityChange);
+
+        //trying different drag with velocity
+        //20 too much
+        //5 too much
+        //1 too much
+        //0.5 too low
+        //0.75 close, too much
+        //0.7 close, too low
+        //0.725 is enough
+        //all above is true just for main charge and 333 vertical scope)0))
+        //yep, doesn't work with anything other
+        newShell.GetComponent<Rigidbody>().velocity = spawnTransform.up * currentSpeed;
+        mortar.GetComponent<AudioSource>().Play();
     }
 }
