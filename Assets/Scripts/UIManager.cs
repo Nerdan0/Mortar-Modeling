@@ -15,7 +15,9 @@ public class UIManager : MonoBehaviour
     TMP_Dropdown chargeDropdown;
     Button shotButton;
 
-    int[] speed = { 261, 216, 179, 135, 76 };
+    //int[] speed = { 261, 216, 179, 135, 76 };
+    //90
+    int[] speed = { 139, 128, 115, 96, 76 };
     int currentSpeed;
     int horizontalValue;
     int verticalValue;
@@ -84,7 +86,7 @@ public class UIManager : MonoBehaviour
             change.text = "0";
         }
         Debug.Log(horizontalValue);
-        mortarObject.transform.localEulerAngles = new Vector3(0, horizontalValue * 0.06f, 0);
+        mortarObject.transform.localEulerAngles = new Vector3(0, horizontalValue * 0.06f+90, 0);
     }
 
     void VerticalChange(TMP_InputField change)

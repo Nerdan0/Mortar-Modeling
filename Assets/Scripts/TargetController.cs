@@ -59,6 +59,13 @@ public class TargetController : MonoBehaviour
         distanceText.text = "Дистанція до цілі: " + Mathf.Round(distance) + " м";
         azimuthObject.transform.LookAt(transform);
         azimuthText.text = "Азимут до цілі: " + Mathf.Round(azimuthObject.transform.localEulerAngles.y);
+
+        GameObject[] craters = GameObject.FindGameObjectsWithTag("Crater");
+        foreach (GameObject crater in craters)
+        {
+            Destroy(crater);
+        }
+
     }
 
     int RandomPoint() 

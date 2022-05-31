@@ -29,5 +29,13 @@ public class ShellCollision : MonoBehaviour
         hitZ.text = "Z:" + Mathf.Round(transform.position.z);
         Instantiate(craterPrefab, new Vector3(transform.position.x, 0.05f, transform.position.z), Quaternion.identity);
         Destroy(gameObject);
+
+        GameObject[] craters = GameObject.FindGameObjectsWithTag("Crater");
+        if (craters.Length>5)
+        {
+            Destroy(craters[0]);
+        }
+
+
     }
 }
